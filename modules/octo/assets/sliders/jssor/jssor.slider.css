@@ -1,0 +1,116 @@
+/*Main slider settings*/
+/*.octJssorSlider {
+	position: relative; 
+	top: 0px; 
+	left: 0px; 
+	width: 100%; 
+}
+.octJssorSlides {
+	overflow: hidden; 
+	left: 0px; 
+	top: 0px; 
+	width: 100%;
+	padding: 10px;
+}
+.octJssorSlides {
+	box-shadow: 1px 1px 1px #9b9b9b;
+}
+.octJssorSlide:hover {
+	background-color: #f1f1f1;
+}*/
+/*two cols styles*/
+/*.octJssorSlider.gmpSlidesListTwoCols .octJssorSlide {
+	float: left;
+	width: calc(50% - 8px);
+	padding: 4px;
+}
+.octJssorSlider.gmpSlidesListTwoCols .gmpMnlJssorSlide.gmpStartRowSlide {
+	padding-left: 0;
+	margin-right: 3px;
+}*/
+/*Slider arrows*/
+.jssora03l, .jssora03r, .jssora03u, .jssora03d {
+	display: block;
+	position: absolute;
+	/* size of arrow element */
+	width: 55px;
+	height: 55px;
+	cursor: pointer;
+	background: url(img/a03.png) no-repeat;
+	overflow: hidden;
+}
+.jssora03l, .jssora03u { background-position: -3px -33px; }
+.jssora03r, .jssora03d { background-position: -63px -33px; }
+.jssora03l {
+	top: 50%; 
+	left: 8px;
+}
+.jssora03u {
+	top: 8px; 
+	left: 50%;
+}
+.jssora03r {
+	top: 50%; 
+	right: 8px;
+}
+.jssora03d {
+	bottom: 8px; 
+	left: 50%;
+}
+.jssora03l:hover, .jssora03u:hover { background-position: -123px -33px; }
+.jssora03r:hover, .jssora03d:hover { background-position: -183px -33px; }
+.jssora03l.jssora03ldn { background-position: -243px -33px; }
+.jssora03r.jssora03rdn { background-position: -303px -33px; }
+/*Slider bullets*/
+.jssorb03, .jssorb03v {
+	position: absolute;
+}
+.jssorb03 {
+	bottom: -10px; 
+	right: 6px;
+}
+.jssorb03v {
+	right: -30px;
+}
+.jssorb03 div, .jssorb03 div:hover, .jssorb03 .av,
+.jssorb03v div, .jssorb03v div:hover, .jssorb03v .av {
+	position: absolute;
+	/* size of bullet elment */
+	width: 21px;
+	height: 21px;
+	text-align: center;
+	line-height: 21px;
+	color: #1e4225;
+	font-size: 12px;
+	background: url(img/b03.png) no-repeat;
+	overflow: hidden;
+	cursor: pointer;
+}
+.jssorb03 div, .jssorb03v div { background-position: -5px -4px; }
+.jssorb03 div:hover, .jssorb03 .av:hover, .jssorb03v div:hover, .jssorb03v .av:hover { background-position: -35px -4px; }
+.jssorb03 .av, .jssorb03v .av { background-position: -65px -4px; }
+.jssorb03 .dn, .jssorb03 .dn:hover, .jssorb03v .dn, .jssorb03v .dn:hover { background-position: -95px -4px; }
+/*Slider content styles*/
+/*.octJssorSlide, .gmpMmlSlideContent {
+	float: left;
+}*/
+/*.octJssorSlide img {
+	width: 100%;
+	max-width: 100%;
+	margin: 0 !important;
+	padding: 0 !important;
+}*/
+/*.gmpMmlSlideDescription, .gmpMmlSlideTitle {
+	padding: 5px 10px;
+}
+.gmpMmlSlideDescription {
+	font-size: 12px;
+}
+.gmpMmlSlideTitle {
+	background-color: #55ba68;
+}
+.gmpMmlSlideTitle a {
+	text-decoration: none;
+	font-size: 14px;
+	color: #1e4225;
+}*/

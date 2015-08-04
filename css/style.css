@@ -1,0 +1,9 @@
+.octErrorMsg {
+    color: #fa4e7f;
+}
+.octSuccessMsg {
+    color: #4ae8ea;
+}
+.octInputError {
+    border: 1px #fa4e7f solid !important;
+}
