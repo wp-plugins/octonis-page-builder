@@ -45,7 +45,7 @@ class octoOct extends moduleOct {
 		}
 	}
 	public function addMetaBoxes() {
-		add_meta_box('octMainMetaBox', __('Octo', OCT_LANG_CODE), array($this, 'showMainMetaBox'), null, 'side', 'high');
+		add_meta_box('octMainMetaBox', OCT_WP_PLUGIN_NAME, array($this, 'showMainMetaBox'), null, 'side', 'high');
 	}
 	public function showMainMetaBox($post) {
 		$this->getView()->showMainMetaBox($post);

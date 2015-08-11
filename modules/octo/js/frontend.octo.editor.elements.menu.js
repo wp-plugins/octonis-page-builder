@@ -4,6 +4,7 @@ function octElementMenu(menuOriginalId, element, btnsClb) {
 	this._menuOriginalId = menuOriginalId;
 	this._element = element;
 	this._btnsClb = btnsClb;
+	this._visible = false;
 	this.init();
 }
 octElementMenu.prototype._afterAppendToElement = function() {
@@ -21,40 +22,45 @@ octElementMenu.prototype.init = function() {
 	this._afterAppendToElement();
 	octInitCustomCheckRadio( this._$ );
 	this.reposite();
-	if(this._$.find('.octImgRemoveBtn').size()) {
+	/*if(this._$.find('.octImgRemoveBtn').size()) {
 		this._$.find('.octImgRemoveBtn').click(function(){
-			self.destroy();
+			self.getElement().destroy();
 			return false;
 		});
-	}
+	}*/
 	if(this._btnsClb) {
 		for(var selector in this._btnsClb) {
 			if(this._$.find( selector ).size()) {
 				this._$.find( selector ).click(function(){
-					self._btnsClb[ selector ]();
+					self._btnsClb[ jQuery(this).data('click-clb-selector') ]();
 					return false;
-				});
+				}).data('click-clb-selector', selector);
 			}
 		}
 	}
 	this._initSubMenus();
 };
+octElementMenu.prototype._hideSubMenus = function() {
+	if(!this._$) return;	// If menu was already destroyed, with destroy element for example
+	var menuAtBottom = this._$.hasClass('octElMenuBottom')
+	,	self = this;
+	this._$.find('.octElMenuSubPanel[data-sub-panel]:visible').each(function(){
+		jQuery(this).slideUp(self._animationSpeed);
+	});
+	this._$.removeClass('octMenuSubOpened');
+	if(!menuAtBottom) {
+		this._$.data('animation-in-process', 1).animate({
+			'top': this._$.data('prev-top')
+		}, this._animationSpeed, function(){
+			self._$.data('animation-in-process', 0)
+		});
+	}
+};
 octElementMenu.prototype._initSubMenus = function() {
 	var self = this;
 	if(this._$.find('.octElMenuBtn[data-sub-panel-show]').size()) {
 		this._$.find('.octElMenuBtn').click(function(){
-			var menuAtBottom = self._$.hasClass('octElMenuBottom');
-			jQuery('.octElMenuSubPanel[data-sub-panel]:visible').each(function(){
-				jQuery(this).slideUp(self._animationSpeed);
-			});
-			self._$.removeClass('octMenuSubOpened');
-			if(!menuAtBottom) {
-				self._$.data('animation-in-process', 1).animate({
-					'top': self._$.data('prev-top')
-				}, self._animationSpeed, function(){
-					self._$.data('animation-in-process', 0)
-				});
-			}
+			self._hideSubMenus();
 		});
 		this._$.find('.octElMenuBtn[data-sub-panel-show]').click(function(){
 			var subPanelShow = jQuery(this).data('sub-panel-show')
@@ -93,6 +99,72 @@ octElementMenu.prototype.destroy = function() {
 		this._$ = null;
 	}
 };
+octElementMenu.prototype.show = function() {
+	if(!this._$) return;	// If menu was already destroyed, with destroy element for example
+	if(!this._visible) {
+		// Let's hide all other element menus in current block before show this one
+		var blockElements = this.getElement().getBlock().getElements();
+		for(var i = 0; i < blockElements.length; i++) {
+			blockElements[ i ].hideMenu();
+		}
+		// And now - show current menu
+		this._$.addClass('active');
+		this._visible = true;
+	}
+};
+octElementMenu.prototype.hide = function() {
+	if(!this._$) return;	// If menu was already destroyed, with destroy element for example
+	if(this._visible) {
+		this._hideSubMenus();
+		this._$.removeClass('active');
+		this._visible = false;
+	}
+};
+octElementMenu.prototype.getElement = function() {
+	return this._element;
+};
+octElementMenu.prototype._initColorpicker = function(params) {
+	params = params || {};
+	var self = this
+	,	color = params.color ? params.color : this._element.get('color')
+	,	colorInp = params.colorInp ? params.colorInp : this._$.find('.octColorBtn .octColorpickerInput')
+	,	colorPanel = params.colorPanel ? params.colorPanel : this._$.find('.octElMenuSubPanel[data-sub-panel="color"]');
+	colorInp.ColorPickerSliders({
+		placement: 'bottom'
+	,	appendto: colorPanel
+	,	color: color
+	,	order: {
+			hsl: 1
+		,	opacity: 2
+		}
+	,	customswatches: 'different-swatches-groupname'
+	,	swatches: ['rgba(255, 0, 0, 1)', 'rgba(0, 255, 0, 1)', 'blue']
+	,	noChangeAfterInit: true
+	,	labels: {
+			hslhue: 'color tone'
+		,	hslsaturation: 'saturation'
+		,	hsllightness: 'brightness'
+		,	opacity: 'alfa'
+		}
+	,	onchange: function(container, color) {
+			var rgbColorStr = color.tiny.toRgbString();
+			colorInp.css({
+				'background-color': rgbColorStr
+			});
+			if(typeof(self._element._setColor) === 'function') {
+				self._element._setColor( rgbColorStr );
+			}
+		}
+	,	flat: true
+	});
+};
+/**
+ * Try to find color picker in menu, if find - init it
+ * TODO: Make this work for all menus, that using colopickers
+ */
+/*octElementMenu.prototype._initColorPicker = function(){
+	
+};*/
 function octElementMenu_btn(menuOriginalId, element, btnsClb) {
 	octElementMenu_btn.superclass.constructor.apply(this, arguments);
 }
@@ -117,32 +189,52 @@ octElementMenu_btn.prototype._afterAppendToElement = function() {
 		jQuery(this).attr('checked') ? btnLink.attr('target', '_blank') : btnLink.removeAttr('target');
 	});
 	// Color settings
-	var colorInp = this._$.find('.octColorBtn .octColorpickerInput')
-	,	colorPanel = this._$.find('.octElMenuSubPanel[data-sub-panel="color"]');
-	colorInp.ColorPickerSliders({
-		placement: 'bottom'
-	,	appendto: colorPanel
-	,	color: this._element.get('bgcolor')
-	,	order: {
-			hsl: 1
-		,	opacity: 2
-		}
-	,	customswatches: 'different-swatches-groupname'
-	,	swatches: ['rgba(255, 0, 0, 1)', 'rgba(0, 255, 0, 1)', 'blue']
-	,	noChangeAfterInit: true
-	,	labels: {
-			hslhue: 'color tone'
-		,	hslsaturation: 'saturation'
-		,	hsllightness: 'brightness'
-		,	opacity: 'alfa'
-		}
-	,	onchange: function(container, color) {
-			var rgbColorStr = color.tiny.toRgbString();
-			colorInp.css({
-				'background-color': rgbColorStr
-			});
-			self._element._setBgColor( rgbColorStr );
-		}
-	,	flat: true
+	this._initColorpicker({
+		color: this._element.get('bgcolor')
 	});
+};
+function octElementMenu_icon(menuOriginalId, element, btnsClb) {
+	octElementMenu_icon.superclass.constructor.apply(this, arguments);
+}
+extendOct(octElementMenu_icon, octElementMenu);
+octElementMenu_icon.prototype._afterAppendToElement = function() {
+	octElementMenu_icon.superclass._afterAppendToElement.apply(this, arguments);
+	var self = this;
+	// Open links library
+	this._$.find('.octIconLibBtn').click(function(){
+		octUtils.showIconsLibWnd( self._element );
+		return false;
+	});
+	// Color settings
+	this._initColorpicker();
+};
+function octElementMenu_grid_col(menuOriginalId, element, btnsClb) {
+	octElementMenu_grid_col.superclass.constructor.apply(this, arguments);
+}
+extendOct(octElementMenu_grid_col, octElementMenu);
+octElementMenu_grid_col.prototype._afterAppendToElement = function() {
+	octElementMenu_grid_col.superclass._afterAppendToElement.apply(this, arguments);
+	var self = this;
+	// Enb/Dslb fill color
+	var enbFillColorCheck = this._$.find('[name=enb_fill_color]');
+	enbFillColorCheck.change(function(){
+		self.getElement().set('enb-color', jQuery(this).attr('checked') ? 1 : 0);
+		self.getElement()._setColor();	// Just update it from existing color
+		return false;
+	});
+	parseInt(this.getElement().get('enb-color'))
+		? enbFillColorCheck.attr('checked', 'checked')
+		: enbFillColorCheck.removeAttr('checked');
+	// Color settings
+	this._initColorpicker();
+	// Enb/Dslb bg img
+	var enbBgImgCheck = this._$.find('[name=enb_bg_img]');
+	enbBgImgCheck.change(function(){
+		self.getElement().set('enb-bg-img', jQuery(this).attr('checked') ? 1 : 0);
+		self.getElement()._setImg();	// Just update it from existing image
+		return false;
+	});
+	parseInt(this.getElement().get('enb-bg-img'))
+		? enbBgImgCheck.attr('checked', 'checked')
+		: enbBgImgCheck.removeAttr('checked');
 };

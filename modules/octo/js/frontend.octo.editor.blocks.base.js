@@ -42,7 +42,7 @@ octBlockBase.prototype._initElementsForArea = function(area) {
 			newElement._setCode(elementCode);
 			var newIterNum = block._elements.push( newElement );
 			addedElements.push( newElement );
-			newElement.setIterNum( newIterNum );
+			newElement.setIterNum( newIterNum - 1 );	// newIterNum == new length of _elements array, iterator number for element - is new length - 1
 		} else {
 			if(g_octEdit)
 				console.log('Undefined Element ['+ elementCode+ '] !!!');
@@ -71,6 +71,9 @@ octBlockBase.prototype._clearElements = function() {
 		}
 		this._elements = [];
 	}
+};
+octBlockBase.prototype.getElements = function() {
+	return this._elements;
 };
 octBlockBase.prototype._initHtml = function() {
 	//this._oneTimeInitElements();

@@ -34,7 +34,8 @@
 	float: left;
 	margin-right: 10px;
 }
-.mce-container .mce-colorbutton {
+.mce-container .mce-colorbutton,
+.octElMenuBtn.octColorBtn {
 	margin-top: 5px;
 	margin-left: 3px;
 }
@@ -75,7 +76,8 @@
 .cp-container {
 	background-color: #263238 !important;
 }
-.mce-colorpanel.mce-container .cp-container {
+.mce-colorpanel.mce-container .cp-container,
+.octElMenuSubPanel .cp-container {
 	background-color: transparent !important;
 }
 .cp-container .cp-transparency,

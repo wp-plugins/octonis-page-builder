@@ -15,8 +15,11 @@ class octoViewOct extends viewOct {
 		frameOct::_()->getModule('templates')->loadCoreJs();
 		frameOct::_()->getModule('templates')->loadAdminCoreJs();
 		frameOct::_()->addScript('admin.octo.post', $this->getModule()->getModPath(). 'js/admin.octo.post.js');
+		frameOct::_()->addStyle('admin.octo.post', $this->getModule()->getModPath(). 'css/admin.octo.post.css');
+		frameOct::_()->addStyle('frontend.octo.editor.octo-icons', $this->getModule()->getAssetsUrl(). 'css/octo-icons.css');
 		$this->assign('isPostConverted', $this->getModel()->isPostConverted( $post->ID ));
 		$this->assign('post', $post);
+		$this->assign('usedBlocksNumber', $this->getModel()->getUsedBlocksNumForPost( $post->ID ));
 		parent::display('octoMainMetaBox');
 	}
 	public function renderForPost($pid, $params = array()) {
@@ -40,7 +43,6 @@ class octoViewOct extends viewOct {
 		}
 		$this->_prepareOctoForRender( $octo, $isEditMode );
 		
-		//var_dump($octo);
 		$this->assign('octo', $octo);
 		$this->assign('pid', $pid);
 		$this->assign('isEditMode', $isEditMode);
@@ -136,6 +138,7 @@ class octoViewOct extends viewOct {
 	}
 	public function connectEditorCss( $octo = array() ) {
 		// We will use other instance of this lib here - to use prev. one in admin area
+		frameOct::_()->getModule('templates')->loadFontAwesome();
 		frameOct::_()->addStyle('octo.jquery.icheck', $this->getModule()->getModPath(). 'css/jquery.icheck.css');
 		frameOct::_()->addStyle('frontend.octo.editor', $this->getModule()->getModPath(). 'css/frontend.octo.editor.css');
 		frameOct::_()->addStyle('frontend.octo.editor.tinymce', $this->getModule()->getModPath(). 'css/frontend.octo.editor.tinymce.css');

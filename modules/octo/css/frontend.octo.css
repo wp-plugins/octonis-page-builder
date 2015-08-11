@@ -71,8 +71,7 @@
 .octBlockLoaderIcon {
 	
 }
-.octShowSmooth,
-.octElMenu {
+.octShowSmooth {
 	visibility: hidden;
 	opacity: 0;
 	transition: visibility 0s linear 0.2s, opacity 0.2s linear;
@@ -89,4 +88,20 @@
 .octElInput,
 .octInputShell {
 	display: inline-block;
+}
+/*Common bg style for all grid elements*/
+.octGridElement {
+  	background: url("") no-repeat center center; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.octElOverlay {
+	position: absolute;
+  	width: 100%;
+  	height: 100%;
+  	top: 0;
+  	left: 0;
+  	display: none;
 }

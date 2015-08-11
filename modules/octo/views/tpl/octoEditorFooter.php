@@ -112,6 +112,14 @@
 			<?php _e('Subscribe Settings', OCT_LANG_CODE)?>
 		</div>
 	</div>
+	<div class="octBlockMenuEl" data-menu="add_grid_item">
+		<div class="octBlockMenuElAct">
+			<i class="octo-icon octo-icon-lg icon-image"></i>
+		</div>
+		<div class="octBlockMenuElTitle">
+			<?php _e('Add Column', OCT_LANG_CODE)?>
+		</div>
+	</div>
 </div>
 <!--Block toolbar example-->
 <div id="octBlockToolbarEx" class="octBlockToolbar octToolbar">
@@ -167,7 +175,7 @@
 			<i class="glyphicon glyphicon-move"></i>
 		</div>
 		<div class="octElMenuBtnDelimiter"></div>
-		<div class="octElMenuBtn octImgRemoveBtn">
+		<div class="octElMenuBtn octRemoveElBtn">
 			<i class="glyphicon glyphicon-trash"></i>
 		</div>
 	</div>
@@ -199,7 +207,7 @@
 			<?php _e('Select image', OCT_LANG_CODE)?>
 		</div>
 		<div class="octElMenuBtnDelimiter"></div>
-		<div class="octElMenuBtn octImgRemoveBtn">
+		<div class="octElMenuBtn octRemoveElBtn">
 			<i class="glyphicon glyphicon-trash"></i>
 		</div>
 	</div>
@@ -237,7 +245,7 @@
 <!--Input menu-->
 <div id="octElMenuInputExl" class="octElMenu" style="min-width: 175px;">
 	<div class="octElMenuMainPanel">
-		<div class="octElMenuBtn octImgMoveBtn">
+		<div class="octElMenuBtn">
 			<label>
 				<?php _e('Required', OCT_LANG_CODE)?>
 				<?php echo htmlOct::checkbox('input_required')?>
@@ -248,7 +256,7 @@
 			<i class="glyphicon glyphicon-move"></i>
 		</div>
 		<div class="octElMenuBtnDelimiter"></div>
-		<div class="octElMenuBtn octImgRemoveBtn">
+		<div class="octElMenuBtn octRemoveElBtn">
 			<i class="glyphicon glyphicon-trash"></i>
 		</div>
 	</div>
@@ -265,15 +273,21 @@
 <div id="octElMenuBtnExl" class="octElMenu" style="min-width: 250px;">
 	<div class="octElMenuMainPanel">
 		<div class="octElMenuBtn octLinkBtn" data-sub-panel-show="link">
-			<i class="glyphicon glyphicon-link"></i>
+			<label>
+				<i class="glyphicon glyphicon-link"></i>
+				<?php _e('Link', OCT_LANG_CODE)?>
+			</label>
 		</div>
 		<div class="octElMenuBtnDelimiter"></div>
 		<div class="octElMenuBtn octColorBtn" data-sub-panel-show="color">
-			<div class="octColorpickerInputShell">
-				<?php echo htmlOct::text('color', array(
-					'attrs' => 'class="octColorpickerInput"'
-				));?>
-			</div>
+			<label>
+				<?php _e('Color', OCT_LANG_CODE)?>
+				<div class="octColorpickerInputShell">
+					<?php echo htmlOct::text('color', array(
+						'attrs' => 'class="octColorpickerInput"'
+					));?>
+				</div>
+			</label>
 		</div>
 	</div>
 	<div class="octElMenuSubPanel" data-sub-panel="link">
@@ -290,9 +304,59 @@
 			<span class="mce-input-name-txt mce-input-name-not-first"><?php _e('open link in a new window', OCT_LANG_CODE)?></span>
 		</label>
 	</div>
-	<div class="octElMenuSubPanel" data-sub-panel="color">
-		color picker go here
+	<div class="octElMenuSubPanel" data-sub-panel="color"></div>
+</div>
+<!--Grid Column menu-->
+<div id="octElMenuGridColExl" class="octElMenu" style="min-width: 370px;">
+	<div class="octElMenuMainPanel">
+		<div class="octElMenuBtn" style="">
+			<?php echo htmlOct::checkbox('enb_fill_color')?>
+		</div>
+		<div class="octElMenuBtn octColorBtn" data-sub-panel-show="color">
+			<label>
+				<?php _e('Fill Color', OCT_LANG_CODE)?>
+				<div class="octColorpickerInputShell">
+					<?php echo htmlOct::text('color', array(
+						'attrs' => 'class="octColorpickerInput"'
+					));?>
+				</div>
+			</label>
+		</div>
+		<div class="octElMenuBtnDelimiter"></div>
+		<div class="octElMenuBtn" style="">
+			<?php echo htmlOct::checkbox('enb_bg_img')?>
+		</div>
+		<div class="octElMenuBtn octImgChangeBtn">
+			<label>
+				<?php _e('Background Image', OCT_LANG_CODE)?>
+				<i class="glyphicon glyphicon-picture"></i>
+			</label>
+		</div>
+		<div class="octElMenuBtnDelimiter"></div>
+		<div class="octElMenuBtn octRemoveElBtn">
+			<i class="glyphicon glyphicon-trash"></i>
+		</div>
 	</div>
+	<div class="octElMenuSubPanel" data-sub-panel="color"></div>
+</div>
+<!---->
+<div id="octElMenuIconExl" class="octElMenu" style="min-width: 250px;">
+	<div class="octElMenuMainPanel">
+		<div class="octElMenuBtn octIconLibBtn" data-sub-panel-show="link">
+			<i class="fa fa-lg fa-pencil"></i>
+			<?php _e('Change Icon', OCT_LANG_CODE)?>
+		</div>
+		<div class="octElMenuBtnDelimiter"></div>
+		<div class="octElMenuBtn octColorBtn" data-sub-panel-show="color">
+			<?php _e('Color', OCT_LANG_CODE)?>
+			<div class="octColorpickerInputShell">
+				<?php echo htmlOct::text('color', array(
+					'attrs' => 'class="octColorpickerInput"'
+				));?>
+			</div>
+		</div>
+	</div>
+	<div class="octElMenuSubPanel" data-sub-panel="color"></div>
 </div>
 <!--Add field wnd-->
 <div class="modal fade" id="octAddFieldWnd" tabindex="-1" role="dialog" aria-labelledby="octAddFieldWndLabel" aria-hidden="true">
@@ -428,6 +492,31 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="button-primary octSubSettingsSaveBtn"><?php _e('Save', OCT_LANG_CODE)?></button>
+			</div>
+		</div>
+	</div>
+</div>
+<!--Icons library wnd-->
+<div class="modal fade" id="octIconsLibWnd" tabindex="-1" role="dialog" aria-labelledby="octIconsLibWndLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="button close" data-dismiss="modal" aria-label="Close">
+					<i class="octo-icon octo-icon-2x icon-close-s" aria-hidden="true"></i>
+				</button>
+				<h4 class="modal-title"><?php _e('Icons Library', OCT_LANG_CODE)?></h4>
+			</div>
+			<div class="modal-body octElMenuSubPanel">
+				<div id="octSubSettingsWndTabs">
+					<?php echo htmlOct::text('icon_search', array(
+						'attrs' => 'class="octIconsLibSearchTxt" placeholder="'. esc_html(__('Search, for example - pencil, music, ...', OCT_LANG_CODE)). '"',
+					))?>
+					<div class="octIconsLibList row"></div>
+					<div class="octIconsLibEmptySearch alert alert-info" style="display: none;"><?php _e('Nothing found for <span class="octNothingFoundKeys"></span>, maybe try to search something else?', OCT_LANG_CODE)?></div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="button-primary octIconsLibSaveBtn"><?php _e('Close', OCT_LANG_CODE)?></button>
 			</div>
 		</div>
 	</div>

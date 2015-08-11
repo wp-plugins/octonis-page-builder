@@ -1,0 +1,30 @@
+.octPostSettingsFooter {
+	background: #f5f5f5 none repeat scroll 0 0;
+    border-top: 1px solid #ddd;
+    clear: both;
+    padding: 10px;
+}
+.octReturnPostFromOcto {
+	color: #aa0000 !important;
+	text-decoration: none !important;
+	float: left;
+	display: block;
+	line-height: 28px;
+}
+.octEditTplBtn {
+	display: block;
+	float: right;
+	vertical-align: middle;
+}
+#octMainMetaBox .inside {
+	padding: 0;
+	margin: 0;
+}
+#octMainMetaBox .octMetaBoxHeadIcon {
+	margin-right: 8px;
+	font-size: 20px;
+	vertical-align: middle;
+}
+#octMainMetaBox .hndle span {
+	vertical-align: middle;
+}

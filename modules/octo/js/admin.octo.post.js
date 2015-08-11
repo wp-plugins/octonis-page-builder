@@ -1,5 +1,7 @@
 var g_octPostConverted = false;
 jQuery(document).ready(function(){
+	// Append our branding icon to the meta box
+	jQuery('#octMainMetaBox .hndle').prepend('<i class="octo-icon icon-genie octMetaBoxHeadIcon"></i>');
 	if(jQuery('.octPostSettingsShell').is(':visible')) {
 		g_octPostConverted = true;
 	}
@@ -21,7 +23,7 @@ jQuery(document).ready(function(){
 		return false;
 	});
 	jQuery('.octReturnPostFromOcto').click(function(){
-		if(confirm(toeLangOct('Are you sure want back to usual view from Octo?'))) {
+		if(confirm(toeLangOct('Are you sure want back to usual view from Octonis?'))) {
 			jQuery.sendFormOct({
 				btn: this
 			,	data: {mod: 'octo', action: 'returnFromOcto', pid: jQuery(this).data('pid')}

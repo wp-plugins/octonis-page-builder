@@ -230,4 +230,7 @@ abstract class modelOct extends baseObjectOct {
 	public function getTbl() {
 		return $this->_tbl;
 	}
+	public function exists($value, $field = '') {
+		return frameOct::_()->getTable( $this->_tbl )->exists( $value, $field );
+	}
 }

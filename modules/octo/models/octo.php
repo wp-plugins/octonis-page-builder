@@ -61,9 +61,17 @@ class octoModelOct extends modelOct {
 	public function convertToOcto($d = array()) {
 		$pid = isset($d['pid']) ? (int) $d['pid'] : 0;
 		if($pid) {
-			return $this->insert(array(
-				'pid' => $pid,
-			));
+			if($this->exists($pid, 'pid')) {
+				$this->update(array(
+					'active' => 1,
+				),array(
+					'pid' => $pid,
+				));
+			} else {
+				$this->insert(array(
+					'pid' => $pid,
+				));
+			}
 		} else
 			$this->pushError(__('Invalid Post ID', OCT_LANG_CODE));
 		return false;
@@ -71,7 +79,11 @@ class octoModelOct extends modelOct {
 	public function returnFromOcto($d = array()) {
 		$pid = isset($d['pid']) ? (int) $d['pid'] : 0;
 		if($pid) {
-			return $this->remove( $pid );
+			return $this->update(array(
+				'active' => 0,
+			), array(
+				'pid' => $pid,
+			));
 		} else
 			$this->pushError(__('Invalid Post ID', OCT_LANG_CODE));
 		return false;
@@ -176,5 +188,7 @@ class octoModelOct extends modelOct {
 			$this->pushError (__('Invalid Octo ID', OCT_LANG_CODE));
 		return false;
 	}
-	
+	public function getUsedBlocksNumForPost($pid) {
+		return (int) dbOct::get('SELECT COUNT(*) AS total FROM @__octo, @__octo_blocks WHERE @__octo.id = @__octo_blocks.oid AND @__octo.pid = '. (int)$pid, 'one');
+	}
 }

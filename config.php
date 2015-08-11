@@ -47,7 +47,7 @@
 	define('OCT_EOL', "\n");    
     
     define('OCT_PLUGIN_INSTALLED', true);
-    define('OCT_VERSION', '1.0.1');
+    define('OCT_VERSION', '1.0.2');
     define('OCT_USER', 'user');
     
     define('OCT_CLASS_PREFIX', 'octc');     
@@ -84,3 +84,7 @@
 	define('OCT_VIDEO', 'video');
 	
 	define('OCT_HOME_PAGE_ID', 0);
+	/**
+	 * Our product name
+	 */
+	define('OCT_OUR_NAME', 'Octonis');

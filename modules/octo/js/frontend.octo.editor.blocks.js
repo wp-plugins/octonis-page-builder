@@ -55,8 +55,13 @@ octBlockBase.prototype.setParam = function(key, value) {
 octBlockBase.prototype.appendToCanvas = function() {
 	this._$.appendTo('#octCanvas');
 };
+octBlockBase.prototype.getElementByIterNum = function(iterNum) {
+	return this._elements[ iterNum ];
+};
 octBlockBase.prototype.removeElementByIterNum = function(iterNum) {
+	console.log(this._elements.length);
 	this._elements.splice( iterNum, 1 );
+	console.log(this._elements.length, iterNum);
 	if(this._elements && this._elements.length) {
 		for(var i = 0; i < this._elements.length; i++) {
 			this._elements[ i ].setIterNum( i );
@@ -349,6 +354,7 @@ octBlockBase.prototype.beforeSave = function() {
 octBlockBase.prototype.afterSave = function() {
 	if(this._elements && this._elements.length) {
 		for(var i = 0; i < this._elements.length; i++) {
+			//console.log( i, this._elements[ i ], this._elements[ i ].$() );
 			this._elements[ i ].afterSave();
 		}
 	}
@@ -773,4 +779,96 @@ octBlock_subscribes.prototype.getHtml = function() {
 	html = html.replace(/<\!--sub_form_start_open-->.+<\!--sub_form_start_close-->/g, '{{block.sub_form_start|raw}}');
 	html = html.replace(/<\!--sub_form_end_open-->.+<\!--sub_form_end_close-->/g, '{{block.sub_form_end|raw}}');
 	return html;
+};
+/**
+ * Grid block base class
+ */
+octBlock_grids.prototype._getGridWrapper = function() {
+	return this._$.find('.octGridWrapper');
+};
+octBlock_grids.prototype._getAllCols = function() {
+	return this._getGridWrapper().find('.octGridElement');
+};
+octBlock_grids.prototype._getBootstrapItemClass = function(allCols, maxRowCols, newCol) {
+	var res = {current: '', required: ''}
+	,	colsNum = allCols.size();
+	if(newCol)
+		colsNum++;
+	if(colsNum) {
+		var lastCol = allCols.last()
+		,	currBSClasses = lastCol && lastCol.size() ? octUtils.extractBootstrapColsClasses( lastCol ) : []	// BS - BootStrap
+		,	newItemClasses = newCol ? octUtils.extractBootstrapColsClasses( newCol ) : false;
+		if(newCol && newItemClasses.length) {
+			for(var i = 0; i < newItemClasses.length; i++) {
+				if(toeInArray(newItemClasses[ i ], currBSClasses) === -1) {
+					currBSClasses.push( newItemClasses[i] );
+				}
+			}
+		}
+		res.current = currBSClasses.join(' ');
+		var newI = colsNum > maxRowCols ? (12 / maxRowCols) : (12 / colsNum);	// 12 - is from bootstrap documentation - 12 cols per one responsive row
+		var newBSClasses = jQuery.map(currBSClasses, function(element){
+			if(element !== 'col') {
+				element = element.replace(/(col\-\w{2}\-)(\d{1,2})/, '$1'+ newI);	// replace one last digit in class name, foe xample col-sm-4 - can be col-sm-3 now
+			}
+			return element;
+		});
+		res.required = newBSClasses.join(' ');
+	} else {
+		res.required = 'col col-sm-12';	// Full width column
+	}
+	return res;
+	
+};
+octBlock_grids.prototype._clickMenuItem_add_grid_item = function(options, params) {
+	params = params || {};
+	//var self = this;
+	var wrapper = this._getGridWrapper()
+	,	allCols = this._getAllCols()
+	,	maxRowCols = parseInt(this.getParam('max_row_cols'))
+	//,	lastCol = allCols && allCols.size() ? allCols.last() : false
+	,	newItemHtml = this.getParam('new_item_html');
+	
+	newItemHtml = twig({
+		data: newItemHtml
+	}).render({
+		block: this._data
+	});
+	var newItem = jQuery( newItemHtml );
+	wrapper.append( newItem );
+	var addedElements = this._initElementsForArea( newItem )
+	,	rowClasses = this._getBootstrapItemClass( allCols, maxRowCols, newItem );
+	// We can't use here allCols variable - as we need to get all columns including our last added column
+	/*this._recalcColsClasses();
+	this._getAllCols()
+		.removeClass(rowClasses.current)
+		.addClass(rowClasses.required);*/
+	this._recalcColsClasses({
+		rowClasses: rowClasses
+	});
+};
+octBlock_grids.prototype._recalcColsClasses = function(params) {
+	params = params || {};
+	var rowClasses = null
+	,	allCols = this._getAllCols();
+	if(!params.rowClasses) {
+		var maxRowCols = parseInt(this.getParam('max_row_cols'));
+		if(allCols && allCols.size()) {
+			rowClasses = this._getBootstrapItemClass(allCols, maxRowCols);
+			
+		}
+	} else {
+		rowClasses = params.rowClasses;
+	}
+	if(rowClasses) {
+		allCols
+			.removeClass( rowClasses.current )
+			.addClass( rowClasses.required );
+		var allElements = this.getElements();
+		if(allElements && allElements.length) {
+			for(var i = 0; i < allElements.length; i++) {
+				allElements[ i ].repositeMenu();
+			}
+		}
+	}
 };

@@ -245,11 +245,15 @@
 	height: 178px !important;*/
 }
 /*Block Elements settings*/
-.octEl:not(.octElImg):not(.octElInput):hover, 
+.octEl:not(.octElImg):not(.octElInput):not(.octElWithArea):hover, 
 .octElImg:hover .octGalItemImgShell, 
 .octElInput:hover .octInputShell,
+.octElWithArea:hover .octElArea,
 .octEl.mce-edit-focus {
 	outline: 1px solid #ff41a3;
+}
+.octElArea {
+	position: relative;
 }
 .octElMenu {
 	position: absolute;
@@ -258,9 +262,18 @@
 	background-color: transparent;
 	color: #fff;
 	z-index: 9999;
+	
+	visibility: hidden;
+	opacity: 0;
+	transition: visibility 0s linear 0.2s, opacity 0.2s linear;
+}
+.octElMenu.active {
+	visibility: visible;
+	opacity: 1;
+	transition-delay: 0s;
 }
 .octElMenu .octElMenuMainPanel {
-	background-color: #263238;
+	background-color: rgba(45, 34, 52, 0.96);
 	padding: 5px 10px;
 	border-radius: 3px;
 	font-size: 16px;
@@ -323,9 +336,12 @@ label.octElMenuSubPanelRow {
 	border-bottom: 5px solid #263238;
 }
 .octElMenu .octElMenuBtn {
-	display: inline;
+	display: inline-block;
 	cursor: pointer;
 	color: #fff;
+}
+.octElMenu .octElMenuBtn label {
+	cursor: pointer;
 }
 .octElMenu .octElMenuBtn:hover {
 	color: #f72497;
@@ -336,7 +352,7 @@ label.octElMenuSubPanelRow {
 .octElMenuSubPanel {
 	padding-top: 10px;
 	display: none;
-	background-color: #263238;
+	background-color: rgba(57, 45, 63, 0.96);
 	padding: 5px 10px;
 	border-bottom-left-radius: 3px;
 	border-bottom-right-radius: 3px;
@@ -356,11 +372,11 @@ label.octElMenuSubPanelRow {
 	padding: 0 1px;
 	margin: 0 7px;
 }
-.octEl:hover .octElMenu {
+/*.octEl:hover .octElMenu {
 	visibility: visible;
 	opacity: 1;
 	transition-delay: 0s;
-}
+}*/
 /*Block Toolbar*/
 #octBlockToolbarEx {
 	display: none !important;
@@ -752,4 +768,33 @@ html, body {
 }
 a.octEditArea {
 	outline: 0px solid transparent;
+}
+.octIconsLibList {
+	padding: 5px 15px 0;
+}
+.octIconLibItem {
+	font-size: 18px;
+	margin-bottom: 5px;
+	border-radius: 5px;
+	color: #000;
+	cursor: pointer;
+}
+.octIconLibItem:hover {
+	background-color: #ff41a3;
+	color: #fff;
+}
+/*.octIconLibItem:hover .octIconLibPrev {
+	font-size: 24px;
+}*/
+.octIconLibTitle {
+	margin-left: 5px;
+}
+.octIconsLibSearchTxt {
+	width: 100%;
+	padding: 5px;
+}
+.octNothingFoundKeys {
+	background-color: #ff41a3;
+	border-radius: 3px;
+	padding: 2px 7px;
 }

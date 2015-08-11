@@ -322,3 +322,9 @@ if(!function_exists('hash')) {
 		return md5($data);
 	}
 }
+if(!function_exists('ctype_alpha')) {
+	function ctype_alpha($text) {
+		return (bool) preg_match('/[^\pL]+/', $text);
+	}
+}
+/*****/

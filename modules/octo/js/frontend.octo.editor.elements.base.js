@@ -18,6 +18,8 @@ function octElementBase(jqueryHtml, block) {
 	//if(typeof(this._code) === 'undefined') {
 		this._code = 'base';
 	//}
+	this._initedComplete = false;
+	this._editArea = null;
 	
 	if(g_octEdit) {
 		this._init();
@@ -37,7 +39,11 @@ function octElementBase(jqueryHtml, block) {
 		}
 	}
 	this._onlyFirstHtmlInit();
+	this._initedComplete = true;
 }
+octElementBase.prototype.getBlock = function() {
+	return this._block;
+};
 octElementBase.prototype._onlyFirstHtmlInit = function() {
 	if(this._$ && !this._$.data('first-inited')) {
 		this._$.data('first-inited', 1);
@@ -47,6 +53,7 @@ octElementBase.prototype._onlyFirstHtmlInit = function() {
 };
 octElementBase.prototype.setIterNum = function(num) {
 	this._iterNum = num;
+	this._$.data('iter-num', num);
 };
 octElementBase.prototype.getIterNum = function() {
 	return this._iterNum;
@@ -76,7 +83,16 @@ octElementBase.prototype.set = function(opt, val) {
 	this._$.attr( 'data-'+ opt, val );	// not .data() - as it should be saved even after page reload, .data() will not create element attribute
 };
 octElementBase.prototype._getEditArea = function() {
-	return this._$.find('.octInputShell');
+	if(!this._editArea) {
+		this._editArea = this._$.children('.octElArea');
+		if(!this._editArea.size()) {
+			this._editArea = this._$.find('.octInputShell');
+		}
+	}
+	return this._editArea;
+};
+octElementBase.prototype._getOverlay = function() {
+	return this._$.find('.octElOverlay');
 };
 /**
  * Standart button item
