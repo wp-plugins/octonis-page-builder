@@ -18,6 +18,7 @@
     define('OCT_TEMPLATES_DIR', OCT_DIR. 'templates'. DS);
     define('OCT_MODULES_DIR', OCT_DIR. 'modules'. DS);
     define('OCT_FILES_DIR', OCT_DIR. 'files'. DS);
+	define('OCT_JS_DIR', OCT_DIR. 'js'. DS);
     define('OCT_ADMIN_DIR', ABSPATH. 'wp-admin'. DS);
 
     define('OCT_SITE_URL', get_bloginfo('wpurl'). '/');
@@ -26,8 +27,7 @@
     define('OCT_IMG_PATH', WP_PLUGIN_URL.'/'.basename(dirname(__FILE__)).'/img/');
     define('OCT_MODULES_PATH', WP_PLUGIN_URL.'/'.basename(dirname(__FILE__)).'/modules/');
     define('OCT_TEMPLATES_PATH', WP_PLUGIN_URL.'/'.basename(dirname(__FILE__)).'/templates/');
-    define('OCT_JS_DIR', OCT_DIR. 'js/');
-
+    
     define('OCT_URL', OCT_SITE_URL);
 
     define('OCT_LOADER_IMG', OCT_IMG_PATH. 'loading.gif');
@@ -47,7 +47,7 @@
 	define('OCT_EOL', "\n");    
     
     define('OCT_PLUGIN_INSTALLED', true);
-    define('OCT_VERSION', '1.0.2');
+    define('OCT_VERSION', '1.0.3');
     define('OCT_USER', 'user');
     
     define('OCT_CLASS_PREFIX', 'octc');     

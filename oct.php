@@ -3,7 +3,7 @@
  * Plugin Name: Octonis Page Builder
  * Plugin URI:
  * Description: Build amazing web pages or website without any programming skills. Just choose and customize blocks. Focus on the goal, not on technical issues
- * Version: 1.0.2
+ * Version: 1.0.3
  * Author: octonis.com
  * Author URI:
  **/

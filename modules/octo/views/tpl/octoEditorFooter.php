@@ -161,54 +161,77 @@
 </div>
 <!--Manage gallery item menu-->
 <div id="octElMenuGalItemExl" class="octElMenu" style="min-width: 140px;">
-	<div class="octElMenuMainPanel">
-		<div class="octElMenuBtn octImgChangeBtn">
-			<i class="glyphicon glyphicon-picture"></i>
-			<?php _e('Select image', OCT_LANG_CODE)?>
+	<div class="octElMenuContent">
+		<div class="octElMenuMainPanel">
+			<div class="octElMenuBtn octImgChangeBtn">
+				<i class="glyphicon glyphicon-picture"></i>
+				<?php _e('Select image', OCT_LANG_CODE)?>
+			</div>
+			<div class="octElMenuBtnDelimiter"></div>
+			<div class="octElMenuBtn octImgLinkBtn" data-sub-panel-show="link">
+				<i class="glyphicon glyphicon-link"></i>
+			</div>
+			<div class="octElMenuBtnDelimiter"></div>
+			<div class="octElMenuBtn octImgMoveBtn">
+				<i class="glyphicon glyphicon-move"></i>
+			</div>
+			<div class="octElMenuBtnDelimiter"></div>
+			<div class="octElMenuBtn octRemoveElBtn">
+				<i class="glyphicon glyphicon-trash"></i>
+			</div>
 		</div>
-		<div class="octElMenuBtnDelimiter"></div>
-		<div class="octElMenuBtn octImgLinkBtn" data-sub-panel-show="link">
-			<i class="glyphicon glyphicon-link"></i>
+		<div class="octElMenuSubPanel" data-sub-panel="link">
+			<label class="octElMenuSubPanelRow">
+				<span class="mce-input-name-txt"><?php _e('link', OCT_LANG_CODE)?></span>
+				<?php echo htmlOct::text('gal_item_link')?>
+			</label>
+			<label class="octElMenuSubPanelRow">
+				<?php echo htmlOct::checkbox('gal_item_link_new_wnd')?>
+				<span class="mce-input-name-txt mce-input-name-not-first"><?php _e('open link in a new window', OCT_LANG_CODE)?></span>
+			</label>
 		</div>
-		<div class="octElMenuBtnDelimiter"></div>
-		<div class="octElMenuBtn octImgMoveBtn">
-			<i class="glyphicon glyphicon-move"></i>
-		</div>
-		<div class="octElMenuBtnDelimiter"></div>
-		<div class="octElMenuBtn octRemoveElBtn">
-			<i class="glyphicon glyphicon-trash"></i>
-		</div>
-	</div>
-	<div class="octElMenuSubPanel" data-sub-panel="link">
-		<label class="octElMenuSubPanelRow">
-			<span class="mce-input-name-txt"><?php _e('link', OCT_LANG_CODE)?></span>
-			<?php echo htmlOct::text('gal_item_link')?>
-		</label>
-		<label class="octElMenuSubPanelRow">
-			<?php echo htmlOct::checkbox('gal_item_link_new_wnd')?>
-			<span class="mce-input-name-txt mce-input-name-not-first"><?php _e('open link in a new window', OCT_LANG_CODE)?></span>
-		</label>
 	</div>
 </div>
 <!--Image menu-->
-<div id="octElMenuImgExl" class="octElMenu" style="min-width: 140px;">
-	<div class="octElMenuMainPanel">
-		<div class="octElMenuBtn octImgChangeBtn">
-			<i class="glyphicon glyphicon-picture"></i>
-			<?php _e('Select image', OCT_LANG_CODE)?>
+<div id="octElMenuImgExl" class="octElMenu" style="min-width: 260px;">
+	<div class="octElMenuContent">
+		<div class="octElMenuMainPanel">
+			<div class="octElMenuBtn octImgChangeBtn">
+				<label>
+					<?php echo htmlOct::radiobutton('type', array('value' => 'img'))?>
+					<?php _e('Select image', OCT_LANG_CODE)?>
+					<i class="glyphicon glyphicon-picture"></i>
+				</label>
+			</div>
+			<div class="octElMenuBtnDelimiter"></div>
+			<div class="octElMenuBtn octImgVideoSetBtn" data-sub-panel-show="video">
+				<label>
+					<?php echo htmlOct::radiobutton('type', array('value' => 'video'))?>
+					<?php _e('Video', OCT_LANG_CODE)?>
+					<i class="fa fa-video-camera"></i>
+				</label>
+			</div>
+		</div>
+		<div class="octElMenuSubPanel" data-sub-panel="video">
+			<label class="octElMenuSubPanelRow">
+				<span class="mce-input-name-txt"><?php _e('link', OCT_LANG_CODE)?></span>
+				<?php echo htmlOct::text('video_link')?>
+			</label>
 		</div>
 	</div>
 </div>
 <!--Menu image menu-->
-<div id="octElMenuMenuItemImgExl" class="octElMenu" style="min-width: 155px;">
-	<div class="octElMenuMainPanel">
-		<div class="octElMenuBtn octImgChangeBtn">
-			<i class="glyphicon glyphicon-picture"></i>
-			<?php _e('Select image', OCT_LANG_CODE)?>
-		</div>
-		<div class="octElMenuBtnDelimiter"></div>
-		<div class="octElMenuBtn octRemoveElBtn">
-			<i class="glyphicon glyphicon-trash"></i>
+<div id="octElMenuMenuItemImgExl" class="octElMenu" style="min-width: 175px;">
+	<div class="octElMenuContent">
+		<div class="octElMenuMainPanel">
+			<div class="octElMenuBtn octImgChangeBtn">
+				<i class="glyphicon glyphicon-picture"></i>
+				<?php _e('Select image', OCT_LANG_CODE)?>
+			</div>
+			<div class="octElMenuBtnDelimiter"></div>
+			<div class="octElMenuBtn octRemoveElBtn">
+				<i class="glyphicon glyphicon-trash"></i>
+			</div>
 		</div>
 	</div>
 </div>
@@ -244,119 +267,129 @@
 </div>
 <!--Input menu-->
 <div id="octElMenuInputExl" class="octElMenu" style="min-width: 175px;">
-	<div class="octElMenuMainPanel">
-		<div class="octElMenuBtn">
-			<label>
-				<?php _e('Required', OCT_LANG_CODE)?>
-				<?php echo htmlOct::checkbox('input_required')?>
-			</label>
-		</div>
-		<div class="octElMenuBtnDelimiter"></div>
-		<div class="octElMenuBtn octImgMoveBtn">
-			<i class="glyphicon glyphicon-move"></i>
-		</div>
-		<div class="octElMenuBtnDelimiter"></div>
-		<div class="octElMenuBtn octRemoveElBtn">
-			<i class="glyphicon glyphicon-trash"></i>
+	<div class="octElMenuContent">
+		<div class="octElMenuMainPanel">
+			<div class="octElMenuBtn">
+				<label>
+					<?php _e('Required', OCT_LANG_CODE)?>
+					<?php echo htmlOct::checkbox('input_required')?>
+				</label>
+			</div>
+			<div class="octElMenuBtnDelimiter"></div>
+			<div class="octElMenuBtn octImgMoveBtn">
+				<i class="glyphicon glyphicon-move"></i>
+			</div>
+			<div class="octElMenuBtnDelimiter"></div>
+			<div class="octElMenuBtn octRemoveElBtn">
+				<i class="glyphicon glyphicon-trash"></i>
+			</div>
 		</div>
 	</div>
 </div>
 <!--Input Button menu-->
 <div id="octElMenuInputBtnExl" class="octElMenu" style="min-width: 30px;">
-	<div class="octElMenuMainPanel">
-		<div class="octElMenuBtn octImgMoveBtn">
-			<i class="glyphicon glyphicon-move"></i>
+	<div class="octElMenuContent">
+		<div class="octElMenuMainPanel">
+			<div class="octElMenuBtn octImgMoveBtn">
+				<i class="glyphicon glyphicon-move"></i>
+			</div>
 		</div>
 	</div>
 </div>
 <!--Standart Button menu-->
 <div id="octElMenuBtnExl" class="octElMenu" style="min-width: 250px;">
-	<div class="octElMenuMainPanel">
-		<div class="octElMenuBtn octLinkBtn" data-sub-panel-show="link">
-			<label>
-				<i class="glyphicon glyphicon-link"></i>
-				<?php _e('Link', OCT_LANG_CODE)?>
+	<div class="octElMenuContent">
+		<div class="octElMenuMainPanel">
+			<div class="octElMenuBtn octLinkBtn" data-sub-panel-show="link">
+				<label>
+					<i class="glyphicon glyphicon-link"></i>
+					<?php _e('Link', OCT_LANG_CODE)?>
+				</label>
+			</div>
+			<div class="octElMenuBtnDelimiter"></div>
+			<div class="octElMenuBtn octColorBtn" data-sub-panel-show="color">
+				<label>
+					<?php _e('Color', OCT_LANG_CODE)?>
+					<div class="octColorpickerInputShell">
+						<?php echo htmlOct::text('color', array(
+							'attrs' => 'class="octColorpickerInput"'
+						));?>
+					</div>
+				</label>
+			</div>
+		</div>
+		<div class="octElMenuSubPanel" data-sub-panel="link">
+			<label class="octElMenuSubPanelRow">
+				<span class="mce-input-name-txt"><?php _e('link', OCT_LANG_CODE)?></span>
+				<?php echo htmlOct::text('btn_item_link')?>
+			</label>
+			<label class="octElMenuSubPanelRow">
+				<span class="mce-input-name-txt"><?php _e('title', OCT_LANG_CODE)?></span>
+				<?php echo htmlOct::text('btn_item_title')?>
+			</label>
+			<label class="octElMenuSubPanelRow">
+				<?php echo htmlOct::checkbox('btn_item_link_new_wnd')?>
+				<span class="mce-input-name-txt mce-input-name-not-first"><?php _e('open link in a new window', OCT_LANG_CODE)?></span>
 			</label>
 		</div>
-		<div class="octElMenuBtnDelimiter"></div>
-		<div class="octElMenuBtn octColorBtn" data-sub-panel-show="color">
-			<label>
+		<div class="octElMenuSubPanel" data-sub-panel="color"></div>
+	</div>
+</div>
+<!--Grid Column menu-->
+<div id="octElMenuGridColExl" class="octElMenu" style="min-width: 370px;">
+	<div class="octElMenuContent">
+		<div class="octElMenuMainPanel">
+			<div class="octElMenuBtn" style="">
+				<?php echo htmlOct::checkbox('enb_fill_color')?>
+			</div>
+			<div class="octElMenuBtn octColorBtn" data-sub-panel-show="color">
+				<label>
+					<?php _e('Fill Color', OCT_LANG_CODE)?>
+					<div class="octColorpickerInputShell">
+						<?php echo htmlOct::text('color', array(
+							'attrs' => 'class="octColorpickerInput"'
+						));?>
+					</div>
+				</label>
+			</div>
+			<div class="octElMenuBtnDelimiter"></div>
+			<div class="octElMenuBtn" style="">
+				<?php echo htmlOct::checkbox('enb_bg_img')?>
+			</div>
+			<div class="octElMenuBtn octImgChangeBtn">
+				<label>
+					<?php _e('Background Image', OCT_LANG_CODE)?>
+					<i class="glyphicon glyphicon-picture"></i>
+				</label>
+			</div>
+			<div class="octElMenuBtnDelimiter"></div>
+			<div class="octElMenuBtn octRemoveElBtn">
+				<i class="glyphicon glyphicon-trash"></i>
+			</div>
+		</div>
+		<div class="octElMenuSubPanel" data-sub-panel="color"></div>
+	</div>
+</div>
+<!---->
+<div id="octElMenuIconExl" class="octElMenu" style="min-width: 250px;">
+	<div class="octElMenuContent">
+		<div class="octElMenuMainPanel">
+			<div class="octElMenuBtn octIconLibBtn" data-sub-panel-show="link">
+				<i class="fa fa-lg fa-pencil"></i>
+				<?php _e('Change Icon', OCT_LANG_CODE)?>
+			</div>
+			<div class="octElMenuBtnDelimiter"></div>
+			<div class="octElMenuBtn octColorBtn" data-sub-panel-show="color">
 				<?php _e('Color', OCT_LANG_CODE)?>
 				<div class="octColorpickerInputShell">
 					<?php echo htmlOct::text('color', array(
 						'attrs' => 'class="octColorpickerInput"'
 					));?>
 				</div>
-			</label>
-		</div>
-	</div>
-	<div class="octElMenuSubPanel" data-sub-panel="link">
-		<label class="octElMenuSubPanelRow">
-			<span class="mce-input-name-txt"><?php _e('link', OCT_LANG_CODE)?></span>
-			<?php echo htmlOct::text('btn_item_link')?>
-		</label>
-		<label class="octElMenuSubPanelRow">
-			<span class="mce-input-name-txt"><?php _e('title', OCT_LANG_CODE)?></span>
-			<?php echo htmlOct::text('btn_item_title')?>
-		</label>
-		<label class="octElMenuSubPanelRow">
-			<?php echo htmlOct::checkbox('btn_item_link_new_wnd')?>
-			<span class="mce-input-name-txt mce-input-name-not-first"><?php _e('open link in a new window', OCT_LANG_CODE)?></span>
-		</label>
-	</div>
-	<div class="octElMenuSubPanel" data-sub-panel="color"></div>
-</div>
-<!--Grid Column menu-->
-<div id="octElMenuGridColExl" class="octElMenu" style="min-width: 370px;">
-	<div class="octElMenuMainPanel">
-		<div class="octElMenuBtn" style="">
-			<?php echo htmlOct::checkbox('enb_fill_color')?>
-		</div>
-		<div class="octElMenuBtn octColorBtn" data-sub-panel-show="color">
-			<label>
-				<?php _e('Fill Color', OCT_LANG_CODE)?>
-				<div class="octColorpickerInputShell">
-					<?php echo htmlOct::text('color', array(
-						'attrs' => 'class="octColorpickerInput"'
-					));?>
-				</div>
-			</label>
-		</div>
-		<div class="octElMenuBtnDelimiter"></div>
-		<div class="octElMenuBtn" style="">
-			<?php echo htmlOct::checkbox('enb_bg_img')?>
-		</div>
-		<div class="octElMenuBtn octImgChangeBtn">
-			<label>
-				<?php _e('Background Image', OCT_LANG_CODE)?>
-				<i class="glyphicon glyphicon-picture"></i>
-			</label>
-		</div>
-		<div class="octElMenuBtnDelimiter"></div>
-		<div class="octElMenuBtn octRemoveElBtn">
-			<i class="glyphicon glyphicon-trash"></i>
-		</div>
-	</div>
-	<div class="octElMenuSubPanel" data-sub-panel="color"></div>
-</div>
-<!---->
-<div id="octElMenuIconExl" class="octElMenu" style="min-width: 250px;">
-	<div class="octElMenuMainPanel">
-		<div class="octElMenuBtn octIconLibBtn" data-sub-panel-show="link">
-			<i class="fa fa-lg fa-pencil"></i>
-			<?php _e('Change Icon', OCT_LANG_CODE)?>
-		</div>
-		<div class="octElMenuBtnDelimiter"></div>
-		<div class="octElMenuBtn octColorBtn" data-sub-panel-show="color">
-			<?php _e('Color', OCT_LANG_CODE)?>
-			<div class="octColorpickerInputShell">
-				<?php echo htmlOct::text('color', array(
-					'attrs' => 'class="octColorpickerInput"'
-				));?>
 			</div>
 		</div>
+		<div class="octElMenuSubPanel" data-sub-panel="color"></div>
 	</div>
-	<div class="octElMenuSubPanel" data-sub-panel="color"></div>
 </div>
 <!--Add field wnd-->
 <div class="modal fade" id="octAddFieldWnd" tabindex="-1" role="dialog" aria-labelledby="octAddFieldWndLabel" aria-hidden="true">

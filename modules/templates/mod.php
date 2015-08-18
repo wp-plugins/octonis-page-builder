@@ -144,7 +144,7 @@ class templatesOct extends moduleOct {
 	public function loadTinyMce() {
 		static $loaded = false;
 		if(!$loaded) {
-			frameOct::_()->addScript('oct.tinymce', OCT_JS_PATH. 'tinymce/tinymce.dev.js');
+			frameOct::_()->addScript('oct.tinymce', OCT_JS_PATH. 'tinymce/tinymce.min.js');
 			frameOct::_()->addScript('oct.jquery.tinymce', OCT_JS_PATH. 'tinymce/jquery.tinymce.min.js');
 			$loaded = true;
 		}

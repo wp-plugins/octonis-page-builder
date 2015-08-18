@@ -617,6 +617,7 @@ function octCheckUpdate(checkbox) {
 }
 function octCheckUpdateArea(selector) {
 	jQuery(selector).find('input[type=checkbox]').iCheck('update');
+	jQuery(selector).find('input[type=radio]').iCheck('update');
 }
 function octCallWpMedia(params) {
 	params = params || {};

@@ -257,7 +257,7 @@
 }
 .octElMenu {
 	position: absolute;
-	bottom: calc(100% + 5px);
+	bottom: calc(100%);
 	left: 0;
 	background-color: transparent;
 	color: #fff;
@@ -315,7 +315,35 @@ label.octElMenuSubPanelRow {
 #octCanvas .octElMenuSubPanelRow select {
 	color: #fff;
 }
-.octElMenu:after {
+.octElMenu .octElMenuContent:after {
+	border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+	border-top: 5px solid rgba(45, 34, 52, 0.96);
+    clear: both;
+    content: "";
+    height: 0;
+    left: calc(50% - 2.5px);	/*Total center of our panel*/
+    position: absolute;
+    bottom: 0;
+    width: 0;
+}
+.octElMenu .octElMenuContent {
+	margin-bottom: 5px;
+}
+.octElMenu.octElMenuBottom {
+	bottom: 0;
+	top: 100%;
+}
+.octElMenu.octElMenuBottom .octElMenuContent {
+	margin-bottom: 0px;
+	margin-top: 5px;
+}
+.octElMenu.octElMenuBottom .octElMenuContent:after {
+	bottom: calc(100% - 5px);
+	border-top: none;
+	border-bottom: 5px solid rgba(45, 34, 52, 0.96);
+}
+/*.octElMenu:after {
 	border-left: 5px solid transparent;
     border-right: 5px solid transparent;
 	border-top: 5px solid #263238;
@@ -327,14 +355,11 @@ label.octElMenuSubPanelRow {
     top: 100%;
     width: 0;
 }
-.octElMenu.octElMenuBottom {
-	bottom: -40px;
-}
 .octElMenu.octElMenuBottom:after {
 	top: -5px;
 	border-top: none;
 	border-bottom: 5px solid #263238;
-}
+}*/
 .octElMenu .octElMenuBtn {
 	display: inline-block;
 	cursor: pointer;

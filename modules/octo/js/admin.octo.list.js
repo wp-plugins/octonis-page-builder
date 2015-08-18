@@ -23,9 +23,9 @@ jQuery(document).ready(function(){
 	,	viewrecords: true
 	,	sortorder: 'desc'
 	,	jsonReader: { repeatitems : false, id: '0' }
-	,	caption: toeLangOct('Current PopUp')
+	,	caption: toeLangOct('Current Page')
 	,	height: '100%' 
-	,	emptyrecords: toeLangOct('You have no PopUps for now.')
+	,	emptyrecords: toeLangOct('You have no Pages for now.')
 	,	multiselect: true
 	,	onSelectRow: function(rowid, e) {
 			var tblId = jQuery(this).attr('id')
@@ -104,12 +104,12 @@ jQuery(document).ready(function(){
 			popupLabel = jQuery(labelCellData).text();
 		}
 		var confirmMsg = listIds.length > 1
-			? toeLangOct('Are you sur want to remove '+ listIds.length+ ' PopUps?')
-			: toeLangOct('Are you sure want to remove "'+ popupLabel+ '" PopUp?')
+			? toeLangOct('Are you sur want to remove '+ listIds.length+ ' Pages?')
+			: toeLangOct('Are you sure want to remove "'+ popupLabel+ '" Page?')
 		if(confirm(confirmMsg)) {
 			jQuery.sendFormOct({
 				btn: this
-			,	data: {mod: 'popup', action: 'removeGroup', listIds: listIds}
+			,	data: {mod: 'octo', action: 'removeGroup', listIds: listIds}
 			,	onSuccess: function(res) {
 					if(!res.error) {
 						jQuery('#octPagesTbl').trigger( 'reloadGrid' );
@@ -120,10 +120,10 @@ jQuery(document).ready(function(){
 		return false;
 	});
 	jQuery('#octPagesClearBtn').click(function(){
-		if(confirm(toeLangOct('Clear whole popup list?'))) {
+		if(confirm(toeLangOct('Clear whole pages list?'))) {
 			jQuery.sendFormOct({
 				btn: this
-			,	data: {mod: 'popup', action: 'clear'}
+			,	data: {mod: 'octo', action: 'clear'}
 			,	onSuccess: function(res) {
 					if(!res.error) {
 						jQuery('#octPagesTbl').trigger( 'reloadGrid' );

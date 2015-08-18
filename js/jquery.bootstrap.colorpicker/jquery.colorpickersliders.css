@@ -34,10 +34,12 @@
 	float: left;
 	margin-right: 10px;
 }
-.mce-container .mce-colorbutton,
-.octElMenuBtn.octColorBtn {
+.mce-container .mce-colorbutton {
 	margin-top: 5px;
 	margin-left: 3px;
+}
+.octElMenuBtn.octColorBtn .octColorpickerInputShell {
+	vertical-align: middle;
 }
 .octColorpickerInput,
 .octColorpickerInputShell,

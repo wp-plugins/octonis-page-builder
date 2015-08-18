@@ -21,13 +21,8 @@ octElementMenu.prototype.init = function() {
 		.appendTo( this._element.$() );
 	this._afterAppendToElement();
 	octInitCustomCheckRadio( this._$ );
+	this._fixClickOnRadio();
 	this.reposite();
-	/*if(this._$.find('.octImgRemoveBtn').size()) {
-		this._$.find('.octImgRemoveBtn').click(function(){
-			self.getElement().destroy();
-			return false;
-		});
-	}*/
 	if(this._btnsClb) {
 		for(var selector in this._btnsClb) {
 			if(this._$.find( selector ).size()) {
@@ -38,7 +33,17 @@ octElementMenu.prototype.init = function() {
 			}
 		}
 	}
+	
 	this._initSubMenus();
+};
+octElementMenu.prototype._fixClickOnRadio = function() {
+	this._$.find('.octElMenuBtn').each(function(){
+		if(jQuery(this).find('[type=radio]').size()) {
+			jQuery(this).find('[type=radio]').click(function(){
+				jQuery(this).parents('.octElMenuBtn:first').click();
+			});
+		}
+	});
 };
 octElementMenu.prototype._hideSubMenus = function() {
 	if(!this._$) return;	// If menu was already destroyed, with destroy element for example
@@ -237,4 +242,14 @@ octElementMenu_grid_col.prototype._afterAppendToElement = function() {
 	parseInt(this.getElement().get('enb-bg-img'))
 		? enbBgImgCheck.attr('checked', 'checked')
 		: enbBgImgCheck.removeAttr('checked');
+};
+function octElementMenu_img(menuOriginalId, element, btnsClb) {
+	octElementMenu_img.superclass.constructor.apply(this, arguments);
+}
+extendOct(octElementMenu_img, octElementMenu);
+octElementMenu_img.prototype._afterAppendToElement = function() {
+	octElementMenu_img.superclass._afterAppendToElement.apply(this, arguments);
+	this.getElement().get('type') === 'video'
+		? this.$().find('[name=type][value=video]').attr('checked', 'checked')
+		: this.$().find('[name=type][value=img]').attr('checked', 'checked');
 };

@@ -188,26 +188,15 @@ octElement_txt.prototype.afterSave = function() {
  * Image element
  */
 function octElement_img(jqueryHtml, block) {
-	//this._btn = null;
 	if(typeof(this._menuOriginalId) === 'undefined') {
 		this._menuOriginalId = 'octElMenuImgExl';
 	}
+	this._menuClass = 'octElementMenu_img';
 	octElement_img.superclass.constructor.apply(this, arguments);
 }
 extendOct(octElement_img, octElementBase);
 octElement_img.prototype._init = function() {
 	octElement_img.superclass._init.apply(this, arguments);
-	//this._initUploadBtn();
-};
-/*octElement_img.prototype._initUploadBtn = function() {
-	this._btn = jQuery('#octChangeImgBtnExl')
-		.clone()
-		.attr('id', 'octChangeImgBtn_'+ mtRand(1, 99999))
-		.appendTo( this._$ );
-	this._initUploader();
-};*/
-octElement_img.prototype._destroyUploadBtn = function() {
-	//this._btn.remove();
 };
 octElement_img.prototype._beforeImgChange = function(opts, attach, imgUrl, imgToChange) {
 	
@@ -215,32 +204,15 @@ octElement_img.prototype._beforeImgChange = function(opts, attach, imgUrl, imgTo
 octElement_img.prototype._afterImgChange = function(opts, attach, imgUrl, imgToChange) {
 	
 };
-/*octElement_img.prototype._initMenu = function(){
-	octElement_img.superclass._initMenu.apply(this, arguments);
-	var self = this;
-	this._$menu.find('.octImgChangeBtn').click(function(){
-		octCallWpMedia({
-			id: jQuery(this).attr('id')
-		,	clb: function(opts, attach, imgUrl) {
-				var imgToChange = self._$.find('img:first');
-				self._block.beforeSave();
-				self._innerImgsLoaded = 0;
-				self._beforeImgChange( opts, attach, imgUrl, imgToChange );
-				imgToChange.attr('src', imgUrl);
-				self._afterImgChange( opts, attach, imgUrl, imgToChange );
-				self._block.afterSave();
-				_octSaveCanvas();
-			}
-		});
-		return false;	// I know this is not actually a link or btn - but let it be here)
-	});
-};*/
 octElement_img.prototype._initMenuClbs = function() {
 	octElement_img.superclass._initMenuClbs.apply(this, arguments);
 	var self = this;
 	this._menuClbs['.octImgChangeBtn'] = function() {
+		self.set('type', 'img');
+		self._getImg().show();
+		self._getVideoFrame().remove();
 		octCallWpMedia({
-			id: jQuery(this).attr('id')
+			id: self._$.attr('id')
 		,	clb: function(opts, attach, imgUrl) {
 				var imgToChange = self._$.find('img:first');
 				self._block.beforeSave();
@@ -253,29 +225,48 @@ octElement_img.prototype._initMenuClbs = function() {
 			}
 		});
 	};
+	this._menuClbs['.octImgVideoSetBtn'] = function() {
+		self.set('type', 'video');
+		self._buildVideo( self._menu.$().find('[name=video_link]').val() );
+	};
 };
-/*octElement_img.prototype._initUploader = function() {
+octElement_img.prototype._buildVideo = function(url) {
+	url = url ? jQuery.trim( url ) : false;
+	if(url) {
+		var $editArea = this._getEditArea()
+		,	$videoFrame = this._getVideoFrame( $editArea )
+		,	$img = this._getImg( $editArea )
+		,	src = octUtils.urlToVideoSrc( url );
+		$videoFrame.attr({
+			'src': src
+		,	'width': $img.width()
+		,	'height': $img.height()
+		}).show();
+		$img.hide();
+	}
+};
+octElement_img.prototype._getVideoFrame = function( editArea ) {
+	editArea = editArea ? editArea : this._getEditArea();
+	var videoFrame = editArea.find('iframe.octVideo');
+	if(!videoFrame.size()) {
+		videoFrame = jQuery('<iframe class="octVideo" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen />').appendTo( editArea );
+	}
+	return videoFrame;
+};
+octElement_img.prototype._getImg = function(editArea) {
+	editArea = editArea ? editArea : this._getEditArea();
+	return editArea.find('img');
+};
+octElement_img.prototype._initMenu = function() {
+	octElement_img.superclass._initMenu.apply(this, arguments);
 	var self = this;
-	this._btn.click(function(){
-		octCallWpMedia({
-			id: jQuery(this).attr('id')
-		,	clb: function(opts, attach, imgUrl) {
-				self._block.beforeSave();
-				self._$.find('img:first').attr('src', imgUrl);
-				self._block.afterSave();
-				_octSaveCanvas();
-			}
-		});
-		return false;	// I know this is not actually a link or btn - but let it be here)
+	this._menu.$().find('[name=video_link]').change(function(){
+		self._buildVideo( jQuery(this).val() );
+	}).keyup(function(e){
+		if(e.keyCode == 13) {	// Enter
+			self._buildVideo( jQuery(this).val() );
+		}
 	});
-};*/
-octElement_img.prototype.beforeSave = function() {
-	octElement_img.superclass.beforeSave.apply(this, arguments);
-	this._destroyUploadBtn();
-};
-octElement_img.prototype.afterSave = function() {
-	octElement_img.superclass.afterSave.apply(this, arguments);
-	//this._initUploadBtn();
 };
 /**
  * Gallery image element
@@ -622,7 +613,7 @@ octElement_grid_col.prototype._setImg = function(imgUrl) {
 	_octSaveCanvas();
 };
 octElement_grid_col.prototype._initMenuClbs = function() {
-	octElement_img.superclass._initMenuClbs.apply(this, arguments);
+	octElement_grid_col.superclass._initMenuClbs.apply(this, arguments);
 	var self = this;
 	this._menuClbs['.octImgChangeBtn'] = function() {
 		octCallWpMedia({

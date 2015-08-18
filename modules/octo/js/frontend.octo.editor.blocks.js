@@ -59,9 +59,7 @@ octBlockBase.prototype.getElementByIterNum = function(iterNum) {
 	return this._elements[ iterNum ];
 };
 octBlockBase.prototype.removeElementByIterNum = function(iterNum) {
-	console.log(this._elements.length);
 	this._elements.splice( iterNum, 1 );
-	console.log(this._elements.length, iterNum);
 	if(this._elements && this._elements.length) {
 		for(var i = 0; i < this._elements.length; i++) {
 			this._elements[ i ].setIterNum( i );
@@ -354,7 +352,6 @@ octBlockBase.prototype.beforeSave = function() {
 octBlockBase.prototype.afterSave = function() {
 	if(this._elements && this._elements.length) {
 		for(var i = 0; i < this._elements.length; i++) {
-			//console.log( i, this._elements[ i ], this._elements[ i ].$() );
 			this._elements[ i ].afterSave();
 		}
 	}

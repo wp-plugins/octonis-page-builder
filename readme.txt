@@ -2,7 +2,7 @@
 Contributors: octonis.com
 Tags: page builder, website builder, builder, layout builder, drag and drop builder, editor, front-end builder, front-end editor, landing page builder
 Tested up to: 4.2.4
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 
 Build amazing web pages or website without any programming skills. Just choose and customize blocks. Focus on the goal, not on technical issues
 .
@@ -25,6 +25,11 @@ Octonis will completely change your opinion on website development to the better
 2. After activating Octonis Page Builder, navigate to the post or page and activate Octonis
 
 == Changelog ==
+
+= 1.0.3 / 18.08.2015 =
+ * Added video element (integrated with image element - transform any image to video). Insert video for any image in your blocks now!
+ * Compressed scripts - decrease plugin size for 3.5mb
+ * Minor issues fix
 
 = 1.0.2 / 11.08.2015 =
  * Additional text editor improvements
